@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Redirecionador Konviva</title>
+  </head>
+  <body>
+    <h1>Recebendo token</h1>
+
+    <script>
+      window.addEventListener('message', event => {
+        const data = event?.data;
+        console.log(data);
+        if (data && data.token && data.token.access_token && data.token.token_type && data.token.username) {
+          let url =
+            'https://carrefour.konviva.com.br/ms-sso-gndn?access_token=' + encodeURIComponent(data.token.access_token);
+
+          console.log('Token válido recebido — abrindo URL:', url);
+          setTimeout(() => {
+            window.open(url, '_blank');
+            window.location.href = 'https://platform.senior.com.br/senior-x/#/';
+          }, 1000);
+        }
+      });
+    </script>
+  </body>
+</html>
